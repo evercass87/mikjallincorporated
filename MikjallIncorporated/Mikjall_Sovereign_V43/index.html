@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang='pt-BR'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Mikjáll Incorporated | Home</title>
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&family=JetBrains+Mono&display=swap' rel='stylesheet'>
+    <style>
+        :root { --bg: #050505; --border: #1a1a1a; --matrix: #00FF41; --text: #fff; --dim: #555; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+        .top-bar { height: 40px; background: #000; border-bottom: 1px solid var(--border); display: flex; justify-content: flex-end; align-items: center; padding: 0 80px; gap: 20px; font-size: 10px; font-family: 'JetBrains Mono'; color: var(--dim); }
+        .rss { height: 35px; background: #000; border-bottom: 1px solid var(--border); display: flex; align-items: center; overflow: hidden; white-space: nowrap; }
+        .ticker { animation: scroll 60s linear infinite; display: inline-block; font-family: 'JetBrains Mono'; font-size: 11px; color: #444; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        nav { height: 80px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 0 80px; background: rgba(5,5,5,0.9); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        .logo { font-size: 14px; font-weight: 900; letter-spacing: 12px; text-transform: uppercase; color: #fff; text-decoration: none; }
+        .nav-links a { color: var(--dim); text-decoration: none; font-size: 10px; letter-spacing: 3px; margin-left: 30px; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover { color: #fff; }
+        .header { display: grid; grid-template-columns: 1.2fr 1fr; padding: 120px 80px; border-bottom: 1px solid var(--border); align-items: center; }
+        .branding h1 { font-size: 26px; font-weight: 900; letter-spacing: 25px; text-transform: uppercase; margin-bottom: 15px; }
+        .intel { border-left: 1px solid var(--border); padding-left: 50px; color: #666; font-size: 17px; line-height: 1.8; font-weight: 300; }
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); }
+        .card { background: #050505; padding: 90px 50px; text-decoration: none; color: #fff; transition: 0.5s; }
+        .card:hover { background: #0d0d0d; }
+        .card h3 { font-size: 11px; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 30px; color: #d4d4d4; }
+        .infra { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+        .infra-item { background: #050505; padding: 120px 80px; }
+        .infra-item h2 { font-size: 11px; letter-spacing: 12px; color: #333; margin-bottom: 50px; text-transform: uppercase; }
+        .pay-tag { border: 1px solid #222; padding: 25px 35px; display: inline-block; margin: 0 15px 15px 0; font-size: 12px; font-weight: 900; color: #fff; letter-spacing: 3px; }
+        .pay-tag.crypto { color: var(--matrix); border-color: #004415; }
+        footer { padding: 100px 80px; text-align: center; color: #111; letter-spacing: 15px; font-size: 10px; text-transform: uppercase; font-weight: 900; border-top: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+    <div class='top-bar'><span>PT_BR</span><span>EN_US</span><span>IS_IS</span></div>
+    <div class='rss'><div class='ticker'><b>[INTEL] Monitoramento de rede operacional.</b> <b>[MUNDO] Monero (XMR) em alta nas redes de custódia.</b> <b>[INFO] Sincronização de nós em Reykjavík concluída.</b></div></div>
+    <nav><a href='/' class='logo'>MIKJÁLL INC.</a><div class='nav-links'><a href='/defesa'>Defesa</a><a href='/custodia'>Cofre</a><a href='/performance'>Performance</a><a href='/assets'>Assets</a></div></nav>
+    <div class='header'><div class='branding'><h1>MIKJÁLL</h1><p style='letter-spacing:10px; color:#222; font-weight:900;'>INCORPORATED</p></div><div class='intel'>Operamos na intersecção da tecnologia ofensiva e gestão de patrimônio. Nossa missão é a soberania absoluta através da engenharia de elite.</div></div>
+    <div class='grid'>
+        <a href='/defesa' class='card'><h3>Cyber Defense</h3><p style='color:#444'>Inteligência ofensiva American Dog Sec.</p></a>
+        <a href='/custodia' class='card'><h3>Asset Vault</h3><p style='color:#444'>Custódia air-gapped Wifemarked.</p></a>
+        <a href='/performance' class='card'><h3>High Performance</h3><p style='color:#444'>Otimização de ativos biológicos.</p></a>
+        <a href='/assets' class='card'><h3>Asset Music</h3><p style='color:#444'>Governança de IP e cultura.</p></a>
+    </div>
+    <div class='infra'>
+        <div class='infra-item'><h2>Liquidação</h2><div class='pay-tag crypto'>MONERO (XMR)</div><div class='pay-tag crypto'>BITCOIN (BTC)</div><div class='pay-tag'>CREDIT CARD</div></div>
+        <div class='infra-item'><h2>Arch_Nodes</h2><p style='color:#444; font-family: "JetBrains Mono"; font-size:12px;'>IS_REYKJAVIK: <b style='color:var(--matrix)'>ONLINE</b> // LATENCY: 14ms</p></div>
+    </div>
+    <footer>MIKJÁLL INCORPORATED // 2026</footer>
+</body>
+</html>

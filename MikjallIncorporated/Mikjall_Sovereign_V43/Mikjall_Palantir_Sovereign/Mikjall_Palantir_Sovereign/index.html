@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang='pt-BR'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Mikjáll // Sovereign Intelligence</title>
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;700;900&family=JetBrains+Mono&display=swap' rel='stylesheet'>
+    <style>
+        :root { --bg: #0d0d0d; --ui-border: #2a2a2a; --ui-text: #ffffff; --ui-matrix: #00FF41; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; cursor: crosshair; }
+        body { background: var(--bg); color: #fff; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+        .radar-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at 50% 50%, rgba(0,255,65,0.02) 0%, transparent 80%); }
+        .grid-lines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background-image: linear-gradient(var(--ui-border) 1px, transparent 1px), linear-gradient(90deg, var(--ui-border) 1px, transparent 1px); background-size: 50px 50px; opacity: 0.3; }
+
+        /* HEADER & TICKER */
+        .system-bar { height: 35px; border-bottom: 1px solid var(--ui-border); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; font-family: 'JetBrains Mono'; font-size: 9px; color: #444; background: #000; letter-spacing: 2px; }
+        .rss-ticker { height: 40px; background: #000; border-bottom: 1px solid var(--ui-border); display: flex; align-items: center; overflow: hidden; white-space: nowrap; }
+        .ticker-label { background: var(--ui-matrix); color: #000; font-size: 9px; font-weight: 900; padding: 0 20px; height: 100%; display: flex; align-items: center; letter-spacing: 2px; }
+        .ticker-content { display: inline-block; animation: scroll 80s linear infinite; font-family: 'JetBrains Mono'; font-size: 11px; color: #444; }
+        .ticker-content b { color: #fff; margin: 0 60px; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* DASHBOARD */
+        .main-wrapper { display: flex; width: 100%; }
+        .side-nav { width: 60px; border-right: 1px solid var(--ui-border); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding-top: 30px; background: #000; position: sticky; top: 0; }
+        .side-id { writing-mode: vertical-rl; text-orientation: mixed; font-family: 'JetBrains Mono'; font-size: 10px; color: var(--ui-matrix); letter-spacing: 8px; font-weight: 900; opacity: 0.4; }
+
+        main { flex: 1; min-width: 0; }
+        nav { height: 100px; border-bottom: 1px solid var(--ui-border); display: flex; align-items: center; padding: 0 60px; justify-content: space-between; background: #0d0d0d; }
+        .logo { font-size: 11px; font-weight: 900; letter-spacing: 15px; text-transform: uppercase; border: 1px solid var(--ui-border); padding: 15px 30px; background: #000; }
+
+        .dashboard { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1px; background: var(--ui-border); border-bottom: 1px solid var(--ui-border); }
+        .hero { background: rgba(13,13,13,0.8); padding: 100px 60px; position: relative; overflow: hidden; backdrop-filter: blur(20px); }
+        .hero h1 { font-size: clamp(3rem, 12vw, 9rem); font-weight: 100; letter-spacing: -14px; line-height: 0.8; text-transform: uppercase; }
+        .scan-line { width: 100%; height: 2px; background: rgba(0, 255, 65, 0.05); position: absolute; top: 0; left: 0; animation: scan 6s linear infinite; pointer-events: none; }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        .intel-panel { background: #000; padding: 60px; border-left: 1px solid var(--ui-border); }
+        .panel-h { font-family: 'JetBrains Mono'; font-size: 9px; color: var(--ui-matrix); letter-spacing: 5px; margin-bottom: 40px; text-transform: uppercase; border-bottom: 1px solid var(--ui-border); padding-bottom: 15px; }
+
+        /* SECTORS */
+        .sectors { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--ui-border); border-bottom: 1px solid var(--ui-border); }
+        .sector { background: #0d0d0d; padding: 80px 40px; text-decoration: none; color: #fff; transition: 0.4s; text-align: center; }
+        .sector:hover { background: #111; border-top: 2px solid var(--ui-matrix); }
+
+        footer { padding: 80px 60px; display: flex; justify-content: space-between; font-size: 10px; letter-spacing: 12px; color: #222; font-weight: 900; text-transform: uppercase; background: #000; }
+        
+        /* GATILHO INVISÍVEL PARA LOGIN */
+        .admin-trigger { color: inherit; text-decoration: none; cursor: crosshair; }
+        .admin-trigger:hover { color: var(--ui-matrix); }
+    </style>
+</head>
+<body>
+    <div class="radar-bg"></div>
+    <div class="grid-lines"></div>
+
+    <div class="system-bar">
+        <div>MIKJALL_INC // PUBLIC_TERMINAL</div>
+        <div>STABILITY: 100% // <a href="/login" class="admin-trigger">ROOT_V74</a></div>
+    </div>
+    
+    <div class="rss-ticker">
+        <div class="ticker-label">INTEL_STREAM</div>
+        <div class="ticker-content">
+            <b>[MUNDO] Transações Monero em alta.</b> <b>[SYSTEM] Defesa American Dog Sec Ativa.</b> <b>[INC] Node_Reykjavík sincronizado.</b>
+        </div>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="side-nav"><div class="side-id">SCHEIDT_INFRASTRUCTURE</div></div>
+        <main>
+            <nav><div class="logo">MIKJÁLL // INC</div></nav>
+            <div class="dashboard">
+                <div class="hero">
+                    <div class="scan-line"></div>
+                    <span style="color:var(--ui-matrix); font-family:'JetBrains Mono'; font-size:11px; letter-spacing:10px; display:block; margin-bottom:30px;">SOVEREIGN_ARCHITECT</span>
+                    <h1>Nhost<br>Eirikr</h1>
+                </div>
+                <div class="intel-panel">
+                    <div class="panel-h">Operational_Status</div>
+                    <div style="font-family:'JetBrains Mono'; font-size:10px; color:#333; line-height:2.2;">
+                        > TERMINAL_TYPE: PUBLIC_VITRINE<br>
+                        > LOCATION: IS_REYKJAVIK<br>
+                        > OPERATOR: <b>NHOST</b> // LEAD: <b>SCHEIDT</b>
+                    </div>
+                </div>
+            </div>
+            <div class="sectors">
+                <a href="/defesa" class="sector"><h3>Defense</h3></a>
+                <a href="/custodia" class="sector"><h3>Vault</h3></a>
+                <a href="/performance" class="sector"><h3>Bio</h3></a>
+                <a href="/assets" class="sector"><h3>Music</h3></a>
+            </div>
+            <footer>
+                <div>MIKJÁLL INC // © 2026</div>
+                <div style="color:var(--ui-matrix)">SCHEIDT_INFRA_STABLE</div>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

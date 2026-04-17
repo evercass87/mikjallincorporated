@@ -1,0 +1,1 @@
+﻿module.exports = \<div class='internal'><h1>Cyber Defense</h1><p class='internal-lead'>American Dog Sec: Unidade de elite.</p><div class='data-grid'><div class='data-box'><h2>Telemetria</h2><p>Logs ativos de monitoramento global...</p></div></div></div>\;

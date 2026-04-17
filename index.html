@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang='pt-BR'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Mikjáll // Sovereign Intelligence System</title>
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&family=JetBrains+Mono&display=swap' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root { --bg: #050505; --ui-border: #1a1a1a; --ui-matrix: #00FF41; --ui-dim: #333; --ui-text: #fff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; cursor: crosshair; }
+        body { background: var(--bg); color: var(--ui-text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+        /* PALANTIR ATMOSPHERE */
+        .radar-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at 50% 50%, rgba(0,255,65,0.03) 0%, transparent 80%); }
+        .grid-lines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background-image: linear-gradient(var(--ui-border) 1px, transparent 1px), linear-gradient(90deg, var(--ui-border) 1px, transparent 1px); background-size: 45px 45px; opacity: 0.4; }
+        .scan-line { width: 100%; height: 4px; background: rgba(0, 255, 65, 0.1); position: absolute; top: 0; left: 0; animation: scan 10s linear infinite; pointer-events: none; z-index: 10; }
+        @keyframes scan { 0% { top: -10%; } 100% { top: 110%; } }
+
+        /* TOP INTERFACE */
+        .system-bar { height: 35px; border-bottom: 1px solid var(--ui-border); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; font-family: 'JetBrains Mono'; font-size: 8px; color: var(--ui-dim); background: #000; letter-spacing: 2px; }
+        .rss-ticker { height: 40px; background: #000; border-bottom: 1px solid var(--ui-border); display: flex; align-items: center; overflow: hidden; white-space: nowrap; }
+        .ticker-label { background: var(--ui-matrix); color: #000; font-size: 9px; font-weight: 900; padding: 0 25px; height: 100%; display: flex; align-items: center; letter-spacing: 3px; }
+        .ticker-content { display: inline-block; animation: scroll 70s linear infinite; font-family: 'JetBrains Mono'; font-size: 11px; color: #222; }
+        .ticker-content b { color: #666; margin: 0 60px; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* LAYOUT */
+        .main-wrapper { display: flex; width: 100%; }
+        .side-nav { width: 65px; border-right: 1px solid var(--ui-border); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding-top: 40px; background: #000; position: sticky; top: 0; }
+        .side-id { writing-mode: vertical-rl; text-orientation: mixed; font-family: 'JetBrains Mono'; font-size: 10px; color: var(--ui-dim); letter-spacing: 12px; font-weight: 900; }
+
+        main { flex: 1; min-width: 0; }
+        nav { height: 100px; border-bottom: 1px solid var(--ui-border); display: flex; align-items: center; padding: 0 50px; justify-content: space-between; background: #050505; }
+        .logo { font-size: 11px; font-weight: 900; letter-spacing: 15px; border: 1px solid var(--ui-border); padding: 15px 30px; text-transform: uppercase; background: #000; }
+        .auth-btn { font-family: 'JetBrains Mono'; font-size: 10px; color: var(--ui-matrix); text-decoration: none; border: 1px solid var(--ui-matrix); padding: 12px 25px; letter-spacing: 4px; transition: 0.3s; background: none; cursor: pointer; }
+        .auth-btn:hover { background: var(--ui-matrix); color: #000; box-shadow: 0 0 25px var(--ui-matrix); }
+
+        /* HERO + INTEL */
+        .top-grid { display: grid; grid-template-columns: 1.7fr 1fr; gap: 1px; background: var(--ui-border); border-bottom: 1px solid var(--ui-border); }
+        .hero { background: #050505; padding: 120px 60px; position: relative; overflow: hidden; }
+        .hero h1 { font-size: clamp(3rem, 15vw, 12rem); font-weight: 100; letter-spacing: -20px; line-height: 0.7; text-transform: uppercase; }
+        
+        .intel-panel { background: #000; padding: 60px; border-left: 1px solid var(--ui-border); }
+        .panel-h { font-family: 'JetBrains Mono'; font-size: 9px; color: var(--ui-matrix); letter-spacing: 6px; text-transform: uppercase; border-bottom: 1px solid var(--ui-border); padding-bottom: 20px; margin-bottom: 40px; }
+
+        /* TELEMETRY */
+        .stat-row { margin-bottom: 30px; }
+        .stat-bar { height: 2px; background: #111; position: relative; width: 100%; margin-top: 10px; }
+        .stat-fill { height: 100%; background: var(--ui-matrix); position: absolute; box-shadow: 0 0 10px var(--ui-matrix); }
+
+        /* SECTORS */
+        .sectors { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--ui-border); border-bottom: 1px solid var(--ui-border); }
+        .sector { background: #050505; padding: 80px 30px; text-align: center; text-decoration: none; color: #fff; transition: 0.4s; }
+        .sector:hover { background: #0a0a0a; border-top: 2px solid var(--ui-matrix); }
+        .sector h3 { font-size: 13px; font-weight: 900; letter-spacing: 5px; text-transform: uppercase; }
+
+        /* INVENTORY DATABASE */
+        .inventory { padding: 100px 60px; background: #020202; border-bottom: 1px solid var(--ui-border); overflow-x: auto; }
+        .inv-table { width: 100%; min-width: 900px; border-collapse: collapse; font-family: 'JetBrains Mono'; font-size: 11px; }
+        .inv-table th { text-align: left; padding: 25px; color: #222; border-bottom: 1px solid var(--ui-border); letter-spacing: 6px; }
+        .inv-table td { padding: 25px; border-bottom: 1px solid #111; color: #444; }
+        .status-tag { color: var(--ui-matrix); border: 1px solid var(--ui-matrix); padding: 5px 12px; font-size: 9px; }
+
+        footer { padding: 120px 60px; display: flex; justify-content: space-between; font-size: 11px; letter-spacing: 15px; color: #111; font-weight: 900; text-transform: uppercase; background: #000; }
+        
+        @media (max-width: 1024px) { .top-grid, .sectors { grid-template-columns: 1fr; } .side-nav { display: none; } }
+    </style>
+</head>
+<body>
+    <div class="radar-bg"></div><div class="grid-lines"></div><div class="scan-line"></div>
+
+    <div class="system-bar">
+        <div>MIKJALL_SCHEIDT_OS // NODE_REYKJAVIK</div>
+        <div style="color:#222">SESSION: 0x88F2 // ROOT_V86_CLOUDSYNC</div>
+    </div>
+    
+    <div class="rss-ticker">
+        <div class="ticker-label">INTEL_STREAM</div>
+        <div class="ticker-content">
+            <b>[MUNDO] Monero (XMR) liquidez soberana estável.</b> 
+            <b>[SYSTEM] Firewall American Dog Sec Ativo em Kernel Hardened.</b> 
+            <b>[INC] Sincronia de Ativos via Supabase em 100%.</b> 
+            <b>[LOG] Parceria Estratégica Nhost-Scheidt confirmada.</b>
+        </div>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="side-nav"><div class="side-id">SCHEIDT_INFRASTRUCTURE</div></div>
+        <main>
+            <nav><div class="logo">MIKJÁLL // INC</div><a href="/login" class="auth-btn">INITIALIZE_HANDSHAKE</a></nav>
+
+            <div class="top-grid">
+                <div class="hero">
+                    <span style="color:var(--ui-matrix); font-family:'JetBrains Mono'; font-size:12px; letter-spacing:15px; display:block; margin-bottom:40px;">SOVEREIGN_ARCHITECT</span>
+                    <h1>Nhost<br>Eirikr</h1>
+                </div>
+                <div class="intel-panel">
+                    <div class="panel-h">Operational_Biometrics</div>
+                    <div class="stat-row">
+                        <div style="font-family:'JetBrains Mono'; font-size:10px; color:#444;">FOCUS_SYNC</div>
+                        <div class="stat-bar"><div class="stat-fill" style="width:98%"></div></div>
+                    </div>
+                    <div style="font-family:'JetBrains Mono'; font-size:11px; color:#222; margin-top:50px; line-height:2.6;">
+                        > STATUS: <b>ENCRYPTED</b><br>
+                        > OPERATOR: <b>NHOST</b><br>
+                        > DB_LINK: <b>SUPABASE_ACTIVE</b><br>
+                        > UPTIME: <b>99.9%</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sectors">
+                <a href="/defesa" class="sector"><h3>Defense</h3></a>
+                <a href="/vault" class="sector"><h3>Vault</h3></a>
+                <a href="/bio" class="sector"><h3>Performance</h3></a>
+                <a href="/assets" class="sector"><h3>Music</h3></a>
+            </div>
+
+            <div class="inventory">
+                <div class="panel-h">Asset_Registry_Governance</div>
+                <table class="inv-table">
+                    <thead><tr><th>HASH_ID</th><th>ASSET_TITLE</th><th>CLASS</th><th>STATUS</th></tr></thead>
+                    <tbody id="asset-list">
+                        <tr><td>#8821-M</td><td>Interstellar // Nolan</td><td>Cinema_4K</td><td><span class="status-tag">ACTIVE</span></td></tr>
+                        <tr><td>#9910-A</td><td>Selected_Ambient_Works // Aphex</td><td>Lossless</td><td><span class="status-tag">ACTIVE</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <footer><div>MIKJÁLL INC // © 2026</div><div style="color:var(--ui-matrix)">ROOT_ACCESS_GRANTED</div></footer>
+        </main>
+    </div>
+</body>
+</html>

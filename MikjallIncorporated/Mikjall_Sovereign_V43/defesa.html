@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang='pt-BR'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Cyber Defense | Mikjáll Incorporated</title>
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&family=JetBrains+Mono&display=swap' rel='stylesheet'>
+    <style>
+        :root { --bg: #050505; --border: #1a1a1a; --matrix: #00FF41; --text: #fff; --text-dim: #666; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg); color: var(--text); padding-bottom: 100px; }
+        nav { height: 60px; border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 40px; justify-content: space-between; position: sticky; top: 0; background: var(--bg); z-index: 100; }
+        .nav-brand { font-size: 10px; font-weight: 900; letter-spacing: 5px; text-transform: uppercase; color: var(--text-dim); text-decoration: none; }
+        .back-link { font-size: 10px; letter-spacing: 2px; color: var(--matrix); text-decoration: none; text-transform: uppercase; font-weight: 700; }
+        .hero { padding: 120px 40px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1.5fr 1fr; gap: 80px; }
+        .hero h1 { font-size: 6rem; font-weight: 100; letter-spacing: -6px; line-height: 0.8; text-transform: uppercase; }
+        .hero-desc { border-left: 1px solid var(--border); padding-left: 40px; align-self: flex-end; color: var(--text-dim); font-size: 18px; line-height: 1.6; font-weight: 300; }
+        .op-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); }
+        .op-card { background: var(--bg); padding: 80px 40px; }
+        .op-card h3 { font-size: 14px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 25px; }
+        .op-card p { font-size: 14px; color: var(--text-dim); line-height: 1.8; }
+        .telemetry { padding: 80px 40px; background: #0a0a0a; border-bottom: 1px solid var(--border); }
+        .telemetry-h { font-size: 10px; letter-spacing: 5px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 40px; }
+        .data-table { width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono'; font-size: 13px; }
+        .data-table tr { border-bottom: 1px solid var(--border); }
+        .data-table td { padding: 25px 0; color: #444; }
+        .data-table b { color: #fff; }
+    </style>
+</head>
+<body>
+    <nav><a href='/' class='nav-brand'>MIKJÁLL // <b>DEFENSE</b></a><a href='/' class='back-link'>← RETURN_TO_BASE</a></nav>
+    <div class='hero'>
+        <div><span style='color:var(--matrix); font-family: "JetBrains Mono"; font-size:11px; letter-spacing:5px;'>AMERICAN_DOG_SEC</span><h1>Cyber<br>Defense</h1></div>
+        <div class='hero-desc'>Engenharia de proteção ofensiva para ativos soberanos. Blindagem de infraestrutura crítica através de protocolos V-Nexo de isolamento tático.</div>
+    </div>
+    <div class='op-grid'>
+        <div class='op-card'><h3>OSINT Intel</h3><p>Monitoramento massivo em redes de exfiltração para neutralização preventiva de vetores de ataque.</p></div>
+        <div class='op-card'><h3>Kernel Shield</h3><p>Hardening sistêmico em nível de núcleo, eliminando persistências e exfiltradores não autorizados.</p></div>
+        <div class='op-card'><h3>Neutralização</h3><p>Protocolos ativos de redirecionamento de tráfego hostil e mitigação de botnets em tempo real.</p></div>
+    </div>
+    <div class='telemetry'>
+        <h2 class='telemetry-h'>Live_Operations_Telemetry</h2>
+        <table class='table data-table'>
+            <tr><td>MITIGATION_RATIO</td><td style='text-align:right;'><b style='color:var(--matrix)'>99.99%</b></td></tr>
+            <tr><td>ACTIVE_THREAT_DETECTION</td><td style='text-align:right;'><b>OPTIMAL</b></td></tr>
+            <tr><td>ENCRYPTION_STANDARD</td><td style='text-align:right;'><b>AES-XTS-512</b></td></tr>
+        </table>
+    </div>
+</body>
+</html>
